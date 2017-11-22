@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background: deepskyblue;
+  font-family: "Open Sans", sans-serif;
+  text-transform: lowercase;
+}
+
+nav {
+  border: 5px solid aliceblue;
+  height: 100%;
+  width: 100vw;
+  color: white;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+nav div {
+  border: 1px solid aliceblue;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.one {
+  background: #180e80;
+  z-index: 6;
+}
+
+.two {
+  background: #300d80;
+  z-index: 5;
+}
+
+.three {
+  background: #530b80;
+}
+
+.four {
+  background: #780780;
+}
+
+.five {
+  background: #a10780;
+}
