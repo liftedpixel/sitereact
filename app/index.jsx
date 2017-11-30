@@ -7,7 +7,6 @@ const github = {title:"GitHub", url:["https://github.com/liftedpixel","https://l
 
 const sectionsWeb = [ jammming, github ];
 
-const string = 'Ea eripuit appareat his, ne mutat affert est, natum aliquam an sed. Te mel ubique postea signiferumque, ea mel tacimates convenire. Ornatus consequuntur concludaturque te sed, in mel amet debet iuvaret, ad feugiat sapientem ius. Ad eum nibh wisi. Cu vel epicuri intellegam, sea cu utinam docendi.';
 class Web extends React.Component {
   constructor(props) {
     super(props);
@@ -15,11 +14,23 @@ class Web extends React.Component {
   }
 
   makeSections(sections) {
-    let theHTML = "";
+    let stuff = [];
     for (let section of sections) {
-      theHTML += section.title;
+      let x = section.url.length;
+      let urls = [];
+      while (x >= 0) {
+        urls.push(<a href={section.url[x]}>{section.url[x]}</a>);
+        urls.push(<br/>);
+        x--;
+      }
+      stuff.push(<span>
+        <h3>{section.title}</h3>
+        <img src={section.img} />
+        {urls}
+        <p>{section.info}</p>
+      </span>);
     }
-    return theHTML;
+    return stuff;
   }
 
   render () {
@@ -27,21 +38,7 @@ class Web extends React.Component {
       <span>
         <h2>Web</h2>
         <p>Information about my websights.</p>
-        <span>{this.makeSections(sectionsWeb)}</span>
-        <div>
-          <h3>{jammming.title}</h3>
-          <img src={jammming.img} />
-          <a href={jammming.url[0]}>{jammming.url[0]}</a>
-          <p>{jammming.info}</p>
-        </div>
-        <div>
-          <h3>GitHub</h3>
-          <img src="../public/img/party.jpg" />
-          <a href="https://github.com/liftedpixel">github.com/liftedpixel</a>
-          <a href="https://liftedpixel.github.io">liftedpixel.github.io</a>
-          <p>GitHub pages links to Codecademy coursework.</p>
-        </div>
-        <p className="mono">this should be in monospace.</p>
+        {this.makeSections(sectionsWeb)}
       </span>
     );
   }
@@ -53,6 +50,7 @@ class About extends React.Component {
       <span>
       <h2>About</h2>
       <p>something</p>
+      <p className="mono">this should be in monospace.</p>
       </span>
     );
   }
