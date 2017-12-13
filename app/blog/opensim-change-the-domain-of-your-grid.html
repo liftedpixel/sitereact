@@ -1,0 +1,56 @@
+<div class="content">
+  <h1>OpenSim: Change the domain of your grid</h1>
+  <p>12th Nov, 2015 | <a class="colorlink" href="index.html">Back</a></p>
+  <hr>
+  <p>No format again.  Just keeping notes.
+  <br><br>
+  I'm changing my grid from os.liftedpixel.net:9000 to <h3>pixelplanet.online:9000</h3>.  I got a pretty good deal from Namecheap.com on the renewal for next year ($29.99), and the registration was $9.99.  My current host charges $39.99 for a .online renewal, and I saw up to $59.99 as I was shopping around.  When registering a new domain the cost of the renewal, not the registration, is <i>where they get you</i>.
+  <br><br>
+  <hr>
+  <br><br>
+  Anyway, open up <b>C:\diva-r25084\bin\config-include\MyWorld.ini</b>.  Anywhere your old domain is here, change it to the new one.  I didn't back up the original, but this file is pretty simple.
+  <br><br>
+  Also <b>C:\diva-r25084\bin\Regions\RegionConfig.ini</b>.  Changed domain on this file too.
+  <br><br>
+  In <b>C:\diva-r25084\bin\OpenSim.ini</b> I found one spot to change my domain in SMTP settings.
+  <br><br>
+  There were some XML files with the old domain in <b>C:\diva-r25084\bin\DataSnapshot</b>
+  <br><br>
+  <hr>
+  <br><br>
+  The reason you have to change this is because OpenSim checks to make sure you're asking for the domain that the grid is associated with.  If they don't match, you can't connect.  I am currently able to find my region on the map from another grid using pixelplanet.online:9000, but I am not able to complete a teleport.  I tried from Spellscape and OS Grid, both gave the same generic auth failed message.
+  <br><br>
+  <b>UPDATE ALL YOUR DOCUMENTATION</b>
+  Thankfully I don't have much yet, just that one blog post about how to connect.  And a few profiles online.  I already updated my Twitter (<a href="http://twitter.com/hipixelplanet">@hipixelplanet</a>).  I'm not sure what I will need to do with my <a href="http://opensimworld.com/">OpenSimWorld</a> beacon, but I'll figure it out.
+  <br><br>
+  Had to update the Pixel Planet website in a few places, including some links.  I also had to update some stuff on the Wifi page.
+  <br><br>
+  <i>Try and connect</i><br>
+  <img src="http://liftedpixel.net/img/domainremove.png"><br>
+  Removed the old info<br>
+  <img src="http://liftedpixel.net/img/domainadd.png"><br>
+  tried putting in the new info<br>
+  <img src="http://liftedpixel.net/img/domainerror.png"><br>
+  error...
+  <br><br>
+  Restarted Firestorm
+  <img src="http://liftedpixel.net/img/domainremove.png" style="width:100px"><img src="http://liftedpixel.net/img/domainadd.png" style="width:100px"><img src="http://liftedpixel.net/img/domainerror.png" style="width:100px">
+  Tried again, still getting the error.
+  <B>SMACK SELF IN HEAD, GRID IS OFFLINE DUH I TURNED IT OFF TO DO THIS UPDATE</B>
+  <br><br>
+  <img src="http://liftedpixel.net/img/startopensim.png">
+  Start up OpenSim and try again.  Beautiful.
+  <br><br>
+  <img src="http://liftedpixel.net/img/gridinfo.png">
+  Putting in the grid url works fine.
+  <br><br>
+  <img src="http://liftedpixel.net/img/loginuri.png">
+  Wifi works and it has the right grid info.
+  <br><br>
+  I was able to log in just fine.  Tried teleporting out to another grid and back, successful.
+  I tried connecting using my OS Grid and Spellscape accounts, no issues.
+  <br><br>
+  <img src="http://liftedpixel.net/img/gateerror.png">
+  I will need to get in touch with Sean E and Maria K so I can update my domain with them.</p>
+  <a class="colorlink" href="#top">Top</a> | <a class="colorlink" href="index.html">Back</a>
+</div>

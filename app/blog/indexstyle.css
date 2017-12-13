@@ -1,0 +1,325 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: "ComicNeue-Regular", "Comic Sans MS";
+background-color: #ffffff;
+}
+
+#menuholder {
+  border: 0px solid red;
+  width: 200px;
+  position: absolute;
+  right: 50px;
+  top: 0px;
+}
+
+#homeheader {
+  background-color: #808080;
+  min-height: 50px;
+  width: 100%;
+  text-align: center;
+}
+
+#blogheader {
+  background-color: #00bfff;
+  min-height: 50px;
+  width: 100%;
+  text-align: center;
+}
+
+#socialheader {
+  background-color: #ff69b4;
+  min-height: 50px;
+  width: 100%;
+  text-align: center;
+}
+
+#aboutheader {
+  background-color: #ffd700;
+  min-height: 50px;
+  width: 100%;
+  text-align: center;
+}
+
+.menulist {
+  position: relative;
+  top: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: inline;
+}
+
+.menutitle {
+  position: relative;
+  top: 9px;
+  font-size: 20px;
+}
+
+.menuitem {
+  list-style-type: none;
+  font-size: 15px;
+  letter-spacing: 3px;
+}
+
+.menulink {
+  text-decoration: none;
+}
+
+.colorlink {
+  text-decoration: none;
+  border-bottom: 1px solid #00bfff;
+}
+
+.menulink:hover {
+  text-decoration: none;
+  color: #ffffff;
+  background: #808080;
+  animation-duration: 1s;
+  animation-name: colorcycle;
+  animation-iteration-count: infinite;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: colorcycle;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.colorlink:hover {
+  text-decoration: none;
+  color: #ffffff;
+  background: #808080;
+  animation-duration: 1s;
+  animation-name: colorcycle;
+  animation-iteration-count: infinite;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: colorcycle;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.domaininfo {
+padding: 40px;
+display: inline-block;
+}
+
+b {
+  font-weight: 110%;
+  letter-spacing: 3px;
+  color: #ffffff;
+  animation-duration: 1s;
+  animation-name: flashing;
+  animation-iteration-count: infinite;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: flashing;
+  -webkit-animation-iteration-count: infinite;
+}
+
+i {
+  animation-duration: 1s;
+  animation-name: colortext;
+  animation-iteration-count: infinite;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: colortext;
+  -webkit-animation-iteration-count: infinite;
+}
+
+img {
+  max-width: 100%;
+}
+
+img.imgborder {
+  border: 2px solid #00bfff;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0px;
+  border-top: 3px solid #ccc;
+  margin: 1em 0px;
+  padding: 0px;
+  animation-duration: 1s;
+  animation-name: hrcolor;
+  animation-iteration-count: infinite;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: hrcolor;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes hrcolor {
+  0% { border-top: 3px solid #00bfff; }
+  25% { border-top: 3px solid #ff69bf; }
+  50% { border-top: 3px solid #ffd700; }
+  75% { border-top: 3px solid #808080; }
+  100% { border-top: 3px solid #00bfff; }
+}
+
+@keyframes colorcycle {
+  0% { background: #00bfff; }
+  25% { background: #ff69bf; }
+  50% { background: #ffd700; }
+  75% { background: #808080; }
+  100% { background: #00bfff; }
+}
+
+@keyframes flashing {
+  0% { background: #00bfff; }
+  25% { background: #ff69bf; }
+  50% { background: #ffd700; }
+  75% { background: #808080; }
+  100% { background: #00bfff; }
+}
+
+@keyframes colortext {
+  0% { color: #00bfff; }
+  25% { color: #ff69bf; }
+  50% { color: #ffd700; }
+  75% { color: #808080; }
+  100% { color: #00bfff; }
+}
+
+/*for chrome and stuff*/
+@-webkit-keyframes hrcolor {
+  0% { border-top: 3px solid #00bfff; }
+  25% { border-top: 3px solid #ff69bf; }
+  50% { border-top: 3px solid #ffd700; }
+  75% { border-top: 3px solid #808080; }
+  100% { border-top: 3px solid #00bfff; }
+}
+
+@-webkit-keyframes colorcycle {
+  0% { background: #00bfff; }
+  25% { background: #ff69bf; }
+  50% { background: #ffd700; }
+  75% { background: #808080; }
+  100% { background: #00bfff; }
+}
+
+@-webkit-keyframes flashing {
+  0% { background: #00bfff; }
+  25% { background: #ff69bf; }
+  50% { background: #ffd700; }
+  75% { background: #808080; }
+  100% { background: #00bfff; }
+}
+
+@-webkit-keyframes colortext {
+  0% { color: #00bfff; }
+  25% { color: #ff69bf; }
+  50% { color: #ffd700; }
+  75% { color: #808080; }
+  100% { color: #00bfff; }
+}
+/*end for chrome n stuff */
+
+#contentholder {
+  border: 0px solid red;
+  width: 800px;
+  position: absolute;
+  left: 50px;
+  top: 50px;
+}
+
+.content {
+  border: 5px solid #00bfff;
+  border-radius: 15px 15px 0px 0px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.comment {
+  border: 5px solid #00bfff;
+  border-radius: 0px 0px 15px 15px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.boxed {
+  border: 5px solid #00bfff;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+a {
+  color: #000000;
+}
+
+a:visited {
+  color: #000000;
+}
+
+.blue { color: #00BFFF; }
+.gray { color: #808080; }
+.pink { color: #FF69B4; }
+.yellow { color: #FFD700; }
+
+#logoshort {
+  display: none;
+}
+
+#logolong {
+  display: inline;
+}
+
+@media only screen and (max-width: 900px) {
+  #menuholder {
+      border: 0px solid red;
+      min-width: 100%;
+      right: auto;
+      top: auto;
+  }
+
+  #contentholder {
+      border: 0px solid red;
+      position: relative;
+      left: auto;
+      top: auto;
+      width: 100%;
+  }
+
+  #logoshort {
+      display: inline;
+  }
+
+  #logolong {
+      display: none;
+  }
+}
+  
+@font-face {
+font-family: 'ComicNeue-Regular';
+src: url('ComicNeue-Regular.eot?#iefix') format('embedded-opentype'),  url('ComicNeue-Regular.woff') format('woff'), url('ComicNeue-Regular.ttf')  format('truetype'), url('ComicNeue-Regular.svg#ComicNeue-Regular') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+.credits {
+  font-size: 70%;
+}
+
+.socialholder {
+overflow: auto;
+width: 100%;
+}
+
+.socialitem {
+margin: 10px;
+text-align: center;
+float: left;
+}
+
+.socialicon {
+width: 75px;
+height: 75px;
+float: left;
+}
+
+.sociallink {
+float: left;
+clear: left;
+}

@@ -1,0 +1,50 @@
+<div class="content">
+    <h1>Ribbon particles in OpenCollar</h1>
+    <p>30th Jul, 2014 | <a class="colorlink" href="index.html">Back</a></p>
+    <hr>
+  <p><img src="http://liftedpixel.net/img/ribbon.png" /></p>
+
+<p><br />
+<p>I will admit, I only more recently found out about <a href="http://wiki.secondlife.com/wiki/LlParticleSystem">ribbon particles</a> in Second Life (and was <a href="http://i.gyazo.com/042b5a289e4fd3b2d01818968292c321.mp4">pretty excited</a> about it).  I was surprised to see that <a href="http://www.opencollar.at/">OpenCollar</a> was still using 'regular' particles when ribbon particles would better emulate a rope or chain.  The system is open source, so I poked into the code to see if that could be changed.  It was a fairly easy process and I'll show you how to do it.  You'll be adding one item to a list and changing one or two UUIDs.  I think the hardest part was making a chain texture because I am not good at graphics.</p>
+<br />
+<p><i>Here's what we're going to do:</i><br />
+-Make a chain texture that goes left to right<br />
+-Upload the texture to Second Life<br />
+-Change the 'OpenCollar - leashParticle' script to use ribbon particles<br />
+-Change the 'OpenCollar - leashParticle' script to use our custom texture(s)</p>
+<br />
+<h2>Making a texture</h2>
+<p><img src="http://liftedpixel.net/img/chain.png" /></p>
+<br />
+<p>I didn't have any real graphics programs on my computer because textures are not something I normally make.  I downloaded <a href="http://www.gimp.org/">GIMP</a> because it's easy and free.  When I was trying to find out if the chain texture should go up and down, or left to right, I made some quick textures in paint.  I used GIMP to make the background transparent and uploaded it again.  The texture I made had 3 links, but you can get different effects making fewer or more links, or being able to draw and drawing a rope.  Make sure your rope or chain goes from left to right (or right to left, I guess).</p>
+<br />
+<h2>Upload your texture</h2>
+<p><img src="http://liftedpixel.net/img/upload.png" /></p>
+<br />
+<p>This part is easy, but it's going to cost you some Linden dollars.  If you know me, you know I hate spending my $Ls on anything, but if you consider that Linden Lab is going to host a copy of your image forever for a few pennies it doesn't seem so bad.  Upload it, give it an appropriate name, and remember where you saved it.</p>
+<br />
+<h2>Change to a ribbon</h2>
+<p>Edit your collar and open the script 'OpenCollar - leashParticle'.<br />
+Scroll to line 205 where you should see this:</p>
+<p><img class="imgborder" src="http://liftedpixel.net/img/before.png" /></p>
+<p><code>integer iFlags = PSYS&#95;PART&#95;FOLLOW&#95;VELOCITY&#95;MASK | PSYS&#95;PART&#95;TARGET&#95;POS&#95;MASK | PSYS&#95;PART&#95;FOLLOW&#95;SRC&#95;MASK;</code></p>
+<br />
+<p>add PSYS&#95;PART&#95;RIBBON&#95;MASK to the end like this (don't forget to add a pipe | ):<p>
+<p><img class="imgborder" src="http://liftedpixel.net/img/after.png" /></p>
+<p><code>integer iFlags = PSYS&#95;PART&#95;FOLLOW&#95;VELOCITY&#95;MASK | PSYS&#95;PART&#95;TARGET&#95;POS&#95;MASK | PSYS&#95;PART&#95;FOLLOW&#95;SRC&#95;MASK<b> | PSYS&#95;PART&#95;RIBBON&#95;MASK</b>;</code></p>
+<br />
+<p>After saving, your chain texture will look weird because it's rotated the wrong way.  This is where we change to our own texture.</p>
+<br />
+<h2>Change the chain</h2>
+<p><img src="http://liftedpixel.net/img/copyuuid.png" /></p>
+<p>First, you'll need to get the UUID of the texture you created.  You can usually do this by right clicking on the texture in your inventory and selecting 'Copy Asset UUID'.  The process may be different depending on your viewer, but probably not.  Then back in the same leashParticle script, scroll to lines 367 and 369.</p>
+<br />
+<p><img src="http://liftedpixel.net/img/changetexture.png" /></p>
+<br />
+<p>Delete the UUIDs here and paste in the UUID of your texture.  Make sure to just do it to the 'chain' and 'rope' UUIDs.  Save the script and your chain should start using your new texture.  I messed up the transparency on mine, but maybe you'll do better.</p>
+<br />
+<p><img src="http://www.sluniverse.com/snapzilla_snapshots/Jessyka_Richard_Ribbon_particles_570921.jpg" /></p>
+<br />
+If you have any questions, <a href="http://www.plurk.com/p/k98blt">hit me up on Plurk</a>.</p>
+            <a class="colorlink" href="#top">Top</a> | <a class="colorlink" href="index.html">Back</a>
+</div>

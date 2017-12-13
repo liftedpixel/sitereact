@@ -1,0 +1,63 @@
+<div class="content">
+    <h1>Kinect, Rinions, and Second Life</h1>
+    <p>24th Aug, 2014 | <a class="colorlink" href="index.html">Back</a></p>
+    <hr>
+  <p>If you have a Kinect and want to use it to move your avatar around in Second Life, I'm going to show you how.  Thanks to the work of <a href="https://my.secondlife.com/fumi.hax">Fumi Hax</a> and the <a href="http://www.nsl.tuis.ac.jp/xoops/">Network System Laboratory of TUIS</a> it's actually a pretty easy process.  The software to do it is called Rinions (<b>R</b>eal time <b>I</b>nput from <b>NI</b>/NUI and <b>O</b>utput to the <b>N</b>etwork and <b>S</b>hared memory system) and it's actually been around for a few years.  I'm going to break down the steps to installing and using Rinions in this blog post, so keep reading!<br /><br /></p>
+
+<p><i>Here's what we're going to do:</i><br />
+-Plug a Kinect into the computer<br />
+-Install the Kinect drivers, Rinions software, and a special SL viewer<br />
+-Log into Second Life and load up Rinions<br />
+-Set up Rinions to know what animation to replace with your live motion<br />
+-Move your avatar around using your body<br /><br /></p>
+
+<h2>Hook up the hardware</h2>
+
+<p><center><img src="http://liftedpixel.net/img/kinect.png"></center><br />
+To start, you're going to need a Kinect v1.  If you have an Xbox 360, you may have one collecting dust by your television along with all those Dance Central games.  Now that the Xbox One is out, you may not be able to walk into Best Buy and purchase a Kinect v1, and the Kinect v2 probably won't work for our purposes.  I exchanged a brief IM with Fumi Hax, and he is planning to update Rinions to work with the Kinect v2 in the future, so if you have an Xbox One with a Kinect v2, it may be less useless some day!<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/kinectconnect.jpg" style="width: 300px;"></center><br />
+To plug your Kinect into your computer, you're going to need an adapter (unless you have the Windows version Kinect).  They're not too pricey and you can pick them up <a href="http://www.amazon.com/Power-Supply-Cable-Kinect-xbox-360/dp/B004S7GA46">on Amazon</a> for about $10.  The adapter has a power plug, a USB plug, and a receptacle for the Kinect cable.  Plug the power adapter into the wall, plug the Kinect into the cable, and plug the USB cable into your computer.  My computer attempted to install the drivers automatically and failed, but that's okay.  We need to manually install the Kinect SDK (software development kit) in order for it to work anyway.<br /><br /></p>
+
+<h2>Install a bunch of stuff</h2>
+
+<p><h3>Kinect SDK</h3>
+To get your computer to recognize the Kinect, you need to install the Kinect v1 SDK.  The current version is v1.8 and you can download it from the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40278">Microsoft website here</a>.  Make sure you're installing the v1 SDK and not the v2 SDK or things might not work properly.  Even after installing the SDK, my computer complained that something didn't install properly, but it still works fine so who knows.<br /><br /></p>
+
+<h3>Rinions</h3>
+
+<p><center><img src="http://liftedpixel.net/img/unblock.png"></center><br />
+The next step is to install Rinions, which will bridge the gap between your Kinect and your avatar.  <a href="http://www.nsl.tuis.ac.jp/xoops/modules/xpwiki/?Rinions%2FDownload%2FLatest">Visit the NSL site</a> and download the 32 or 64 bit version of Rinions, depending on your operating system.  If you're not sure which one to download, just get the 32 bit version.  Unblock the program if needed by right-clicking the installer, choosing Properties, and clicking the Unblock button.  Right click the installer and choose Run as administrator to make sure it installs everything properly.  The installer will put two shortcuts on your desktop, Rinions and anm_server, and an NSL folder in your Start menu under All Programs.<br /><br /></p>
+
+<h3>SL viewer</h3>
+
+<p>Rinions will only work with a viewer specially compiled to pick up on the data it's sending out.  It comes with three viewers compiled for this purpose: Firestorm 4.3.1, Imprudence 1.3.2, and Singularity 1.7.3.  Please make note that these are old versions of each of these viewers.  You'll need to download and install the viewer you'd like to use because the Rinions installer only includes the viewer program and not the rest of the files needed to run it.  <a href="http://wiki.phoenixviewer.com/fs_older_downloads">Firestorm</a> didn't seem to have releases older than 4.4.2 available, but <a href="http://wiki.kokuaviewer.org/wiki/Imprudence:Downloads">Imprudence</a> and <a href="http://www.singularityviewer.org/downloads">Singularity</a> have all their old versions available on their download pages.  I'm using Singularity, but I'm sure Imprudence works fine if you prefer that viewer.<br /><br /></p>
+
+<h2>Log and load</h2>
+
+<p><center><img src="http://liftedpixel.net/img/runtheviewer.png"></center><br />
+To log into Second Life, use the shortcut that corresponds with the viewer you installed under Start > All Programs > NSL > Rinions > Rinions-Viewer.  Once you're logged in, double-click the Rinions icon on your desktop to launch the program.  You'll get a warning about the 'speech platform' but you can safely ignore it and hit OK.  Before we start, a few settings in Rinions will need to be adjusted.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/settingdevice.png"></center><br />
+First, we'll tell Rinions to use the Kinect SDK by going to Setting > Device and changing Priority of Library at Next Boot to Kinect SDK.  After OKing that setting, click File > Initialize and then OK to the next prompt to reset the program.  It should reload without any warnings this time.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/psipose.png"></center><br />
+Next, we need to tell Rinions what animation in-world to replace with your live motion data.  The software comes with a pose file that you can upload and use.  It's called PSI_Pose.bvh and it's located at C:\Program Files (x86)\NSL\Rinions.  You'll need to upload the animation, set it to loop, and set the priority to 4.  If you're cheap like me and don't want to pay to upload the pose, you can pick up a free, full perm copy of the animation from my <a href="https://marketplace.secondlife.com/p/Free-PSI-pose-for-use-with-Rinions/6325699">SL Marketplace here</a>.  It also seems that you can use any pose that you can get the UUID for.  Open the animation by double-clicking, and choose either Play Locally or Play Inworld, either one will work.  You can also stick the pose into a pose ball or pose stand if you want.  Your avatar will stand in the PSI pose with their arms up like they're under arrest.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/copyuuidrinions.png"><img src="http://liftedpixel.net/img/setanim.png"></center><br />
+Lastly, right-click the animation in your inventory and choose the option to Copy Asset UUID.  Switch back to Rinions and go to Setting > Animation.  Paste the UUID of the animation into the box overriding the UUID that's already in there.  You'll know you have it right when your avatar changes from the PSI pose (or whatever other pose you're using) to a T pose.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/tpose.png"></center><br />
+Now that everything is set up, open the camera by going to Window > Camera and picking any size.  You should see a live image from your Kinect camera.  Hit the yellow play button in the top left corner of the camera window and move in front of the camera.  After a few seconds, the software should pick up your movements and show lines where it thinks your arms, legs, and body are.  Your avatar should also start moving around!  Have fun walking around your house, sitting on your furniture, or posing in your favorite outfits.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/rinions.png"></center><br />
+The more room you have to move around, the easier the Kinect can pick up your movements.  It can make assumptions about where your legs are if something is in the way, like a table, but it works best if it can see your whole body, just like when you're playing Dance Central.  There are a few motions that it has trouble with, like turning around or crossing your arms in front of your face, but using the OpenNI setting under Setting > Device <a href="http://www.nsl.tuis.ac.jp/xoops/modules/xpwiki/?Rinions#bedd5c7d">might improve some of the results</a>.  The system does have voice controls for starting and stopping the camera and navigating the menus when using the Kinect SDK, but I find it has trouble hearing me say 'stop'.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/foxlookson.png"></center><br />
+Using Rinions in this way only shows your avatar movement locally, so if your friends come by they're going to see you in the starting PSI pose.  It is possible to use Rinions to show your movement data to others, but it takes a little more setting up (that's what anm_server is for) and I haven't gotten it to work right with my firewall.  I'll work at it a little more and write up another blog post when I do get it working though.  I'll close up this blog post with a Para Para video I recorded using Rinions (you can see what the <a href="https://www.youtube.com/watch?v=IjkZfSYws10">dance normally looks like here</a>).  You can definitely tell the limitations of the system, but overall the capture speed is good and for simple movements or poses it works very well.<br /><br /></p>
+
+<p><center><iframe width="420" height="315" src="//www.youtube.com/embed/OKghHOQmbXw?rel=0" frameborder="0" allowfullscreen></iframe></center><br /><br /></p>
+
+<p><b>Edit:</b> This blog post was mentioned on New World Notes: <a href="http://nwn.blogs.com/nwn/2014/08/sl-kinect-tutorial.html">http://nwn.blogs.com/nwn/2014/08/sl-kinect-tutorial.html</a>.  Also, since writing this, there is a newer version of Firestorm available on the NSL site to use with Rinions (version 4.6.9).  Only down side is you can only have Firestorm installed once on your system, as far as I could figure out.  If you use Firestorm as your main viewer, you'll either have to uninstall the newer version and install the older version or use one of the other viewers (or use a different main viewer).</p>
+            <a class="colorlink" href="#top">Top</a> | <a class="colorlink" href="index.html">Back</a>
+</div>

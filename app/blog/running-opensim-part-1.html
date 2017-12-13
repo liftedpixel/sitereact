@@ -1,0 +1,83 @@
+<div class="content">
+    <h1>Running OpenSim - Part 1</h1>
+    <p>25th Sep, 2014 | <a class="colorlink" href="index.html">Back</a></p>
+    <hr>
+  <p>Running your own <a href="http://opensimulator.org/wiki/Main_Page">OpenSim</a> grid can be a lot of fun if you like building, scripting, and exploring in Second Life.  In the next few blog posts, I'm going to explain how to set up your own OpenSim grid complete with 'hypergrid' access on Windows.  If your computer is modern enough to run Second Life, you should have no issues running the OpenSim software.  Before we actually get OpenSim running, there are a few things that need to be configured, so let's do that first.<br /><br /></p>
+
+<p><i>Here's what we're going to do:</i><br />
+-Set up a DNS entry<br />
+-Configure the Windows firewall<br />
+-Set up port forwarding<br /><br /></p>
+
+<h2>The DNS dance</h2>
+
+<p>To visit someones hypergrid enabled OpenSim grid, you'll have to type their address into the map search.  You can use an IP address for this, but it's a lot easier if you use a domain name.  If you don't already own a domain, I recommend you purchase one.  Most domains are around $10 a year, and sometimes less if you register them for multiple years.  There used to be many free DNS services out there, but many are moving to a paid model, so you might as well just buy your own domain.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/whatismyip.png" /></center><br />
+First, you'll need to find what your external IP address is. An easy way to accomplish this is to visit a website like <a href="https://www.vpnmentor.com/tools/ipinfo/">vpnmentor.com/tools/ipinfo/</a>.  Jot down your IP address, we will need it in a moment.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/controlpanel.png" /></center><br />
+Next, we're going to create an 'A record' that points a subdomain to your local IP address.  It's a good idea to do this step before the rest of the OpenSim setup because it can take a day or two for the DNS changes to propagate.  Log into your webhost or domain registrar's control panel and find the option for the DNS zone editor.  The location will vary depending on the host.  My webhost uses cPanel and it's called 'Simple Zone Editor' under the 'Domains' header.  Yours may say something like 'Manage DNS Records' or 'Edit Zone Files'.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/addrecord.png" /></center><br />
+Find the option to add an A record, put in your IP address, and what subdomain you want to use.  I use 'os.liftedpixel.net' for <b>O</b>pen<b>S</b>im but you can use whatever you want.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/userdefined.png" /></center><br />
+Save it and it should show up in your list of records (which, again, will look different depending on your host).<br /><br /></p>
+
+<h2>The roof is on Firewall</h2>
+
+<p><center><img src="http://liftedpixel.net/img/firewall.png" /></center><br />
+In order for others to be able to connect to your computer, you're going to need to punch specific holes in your firewall for them to come through.  I'm going to show you how to punch these holes in the Windows firewall, but you may also need to perform similar steps in any other firewall software you have running on your computer.  OpenSim (by default) uses TCP port 9000 and UDP ports 9000 and up, depending on how many sims you're running, one port for each sim.  You'll find the Windows Firewall in your control panel.  Pull it up, click on Advanced Settings, and say yes to the User Account Control prompt if you have that enabled.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/port.png" /></center><br />
+On the left side of the window, select 'Inbound Rules' and on the right click 'New Rule...'.  For the question 'What type of rule would you like to create?' you want to select 'Port' and click Next.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/tcpin.png" /></center><br />
+For 'Does this rule apply to TCP or UDP?' select TCP, then select 'Specific local ports', type in 9000, and hit Next.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/allowconnect.png" /></center><br />
+On the next screen, select 'Allow the connection' and hit Next.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/leavechecked.png" /></center><br />
+Leave all the items checked on the next page and hit Next.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/giveitaname.png" /></center><br />
+On the last screen, put something memorable for the name.  I use 'OpenSim TCP IN' for this one.  Hit finish and the rule you created will show up in the list.  Now we'll repeat the steps 3 more times with a little variation to set up UDP inbound, and TCP and UDP outbound.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/enterudp.png" /></center><br />
+Make sure Inbound Rules is still selected on the left and hit New Rule again on the right.  Select the option for Port and hit next.  This time, select the option for UDP and for the Specific local ports, enter '9000-9003'.  Hit next, make sure Allow the connection is selected and hit next, make sure all the items are checked and hit next, and enter a name.  For this one I use 'OpenSim UDP IN'.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/rulesinthelist.png" /></center><br />
+Hit finish and you should see both of your firewall entries in the list.<br /><br /></p>
+
+<p>Adding the Outbound Rules is exactly the same.  Select Outbound Rules on the left, and hit New Rule on the right.  Select Port, select TCP, and enter 9000.  Make sure the option for Allow the connection is selected because it may default to Block the connection.  Make sure Domain, Private, and Public are checked and enter a rule name.  I use 'OpenSim TCP OUT' for this one.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/outboundsetup.png" /></center><br />
+Repeat the steps for UDP, making sure to enter '9000-9003' for the 'Specific remote ports' and make sure to select 'Allow the connection'.  Click next a few more times and give the rule a name.  'OpenSim UDP OUT' works for me.  After hitting finish, your outbound rules will show up in the list just like the inbound rules.<br /><br /></p>
+
+<h2>Vacation at Port Forward</h2>
+
+<p>If you're familiar with port forwarding, you will need to forward <b>TCP port 9000</b> and <b>UDP ports 9000-9003</b> to your machine.  If you're behind a router, and most people are, you'll need to set up port forwarding rules so people connecting to your IP address over the OpenSim ports are directed to your computer.  This specifics to this step are very different depending on the make and model of your router, but the general idea is the same.  There is a resource online at <a href="http://portforward.com/">portforward.com</a> that has info on how to set up port forwarding on pretty much every sort of router out there.  Depending on your router, you may be able to set up port forwarding using your computer's name, or you may have to use your local IP address.  I'm hooked up to an Apple Airport Extreme and have to use the IP address.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/airportutil.png" /></center><br />
+For most routers, you'll type an IP address into your web browser to get to the admin page, something like 192.168.0.1.  For the Apple AirPort, you have to use the Apple AirPort Utility, which seems a little silly to me but it works.  In the utility, I hit the 'Manual Setup' button to get to all the options, enter the router password, and then select 'Advanced' at the top and the 'Port Mapping' tab.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/setupportforward.png" /></center><br />
+For the 'Public TCP Port(s)' and 'Private TCP Port(s)', I enter 9000 and for the 'Public UDP Port(s)' and 'Private UDP Port(s)', I enter 9000-9003.  For the 'Private IP Address', I enter my computer's local IP address.<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/ipconfig.png" /></center><br />
+To find your local IP address, bring up the command prompt by clicking Start > Run and typing in 'cmd'.  In the command window, type in 'ipconfig' and you'll find your local IP address across from 'IPv4 Address' under either 'Ethernet adapter Local Area Connection' or 'Wireless adapter Local Area Connection' (depending if you're on a wireless connection or not).<br /><br /></p>
+
+<p><center><img src="http://liftedpixel.net/img/giveitaname2.png" /></center><br />
+After entering that info, hit continue, give the connection settings a name, and save it.<br /><br /></p>
+
+<h2>Caveats</h2>
+
+<p>Generally, your internal and external IP addresses won't change, but it's not impossible.  If you leave your computer off for an extended period of time, or you get a new modem or change internet service providers, your IP addresses might change.  If that happens, you'll need to update either your A record (external IP address change) or your port forward settings (internal IP address change).  In your port forward settings, if your router can use the hostname of your computer instead of it's IP addresses, that would eliminate an internal IP address change causing issues.<br /><br /></p>
+
+<h2>See you next time...</h2>
+
+<p>In the next post, we're going to cover installing and setting up MySQL and actually installing the Diva Distro of OpenSim.<br /><br /></p>
+            <a class="colorlink" href="#top">Top</a> | <a class="colorlink" href="index.html">Back</a>
+</div>

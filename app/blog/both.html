@@ -1,0 +1,53 @@
+<div class="content">
+    <h1>Creating an object that's the same in Second Life and Open Sim</h1>
+    <p>18th May, 2015 | <a class="colorlink" href="index.html">Back</a></p>
+    <hr>
+  <p><i>What we're going to do</i><br />
+-Write a PHP script to take the objects info and write it to a database<br>
+-Set up a database to hold the object parameters<br>
+-Create Second Life object that can write it's parameters to a database<br>
+-Create OpenSim object that can read the parameters of an object from a database<br><br></p>
+
+<p><img src="http://i.gyazo.com/59a21a19d90c635b24e41f9f53e69d0f.png"></p>
+
+<p>I am very rusty and distracted.  I know I was close to making this work before, but I need to find it in my inventory.<br><br></p>
+
+<p>Couldn't find my previous version so I'm just going to start over.<br><br></p>
+
+<p>After another hour of plugging at it, I'm making some basic progress.  Nothing is cross talking, but the object in SL can get some of it's basic parameters (color,size,rotation) and spit it out in a string and the object in OS can listen for a string and update accordingly.<br><br></p>
+
+<p><img src="http://i.gyazo.com/e6230c4c2cfe1ee95692144be34c037f.jpg">
+My workshops in Second Life and OpenSim are quite different.</p>
+
+<hr />
+
+<p>Second day working on this.  Started on the PHP script.  It will need to GET some info that's sent to it and then send it to a MySQL database.  Working on getting my in-world object to connect to the PHP script first.<br><br></p>
+
+<p><img src="http://i.gyazo.com/f687cc4326e8def20c9030bc220df88d.png"></p>
+
+<p><img src="http://i.gyazo.com/42916dd936109dc17decd7ddbdb1b0fd.gif">
+This script is coming along.  I even made a little controller to so I don't have to keep typoing the chat commands.<br><br></p>
+
+<p><img src="http://i.gyazo.com/c4ebc139ce28f11c740e134151c66b70.png">
+It's not pretty though.<br><br></p>
+
+<p><img src="http://i.gyazo.com/4c37da13643292484590a0a94c9fbf8d.png">
+Ended up with this for the PHP.  Next step is to get the script connecting to a little database to write the values.<br><br></p>
+
+<p><img src="http://i.gyazo.com/fbe1f36f08a6123a9f9ffaeb63ce2086.png">
+Like this one.  Then, my OpenSim object will need to connect to another script that will get the information from the database.  But I'm going to work on that another day.</p>
+
+<hr />
+
+<p>Worked on the PHP script a little more today.  It takes input via GET and writes it to a database.  Next step is to get it to check for existing object UUIDs and update instead of adding a new item each time.  Then it'll need to get the object parameters from the database so it can send it to the in world object.  Then I need to flesh out the rest of my in world scripts.<br><br></p>
+
+<p><img src="http://i.gyazo.com/d631f38a5284fa82ed00c497968e09ac.png">
+I don't feel like working on it any more today.</p>
+
+<hr />
+
+<p>I got the objects working at least one way.  Next is to get 2 way communication, then get them updating automatically.<br><br></p>
+
+<p><a href="https://www.flickr.com/photos/jessykarichard/18022498488" title="BOTH - an object that&#x27;s the same in both virtual worlds by Jessyka Richard, on Flickr"><img src="https://c1.staticflickr.com/9/8778/18022498488_cd8673493c_z.jpg" width="640" height="360" alt="BOTH - an object that&#x27;s the same in both virtual worlds"></a></p>
+            <a class="colorlink" href="#top">Top</a> | <a class="colorlink" href="index.html">Back</a>
+</div>

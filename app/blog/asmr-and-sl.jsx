@@ -1,0 +1,5 @@
+export const post = {
+  title: "ASMR and SL",
+  date: "4th Aug, 2014",
+  content: "<p>While sitting in the Designing Worlds studio and <a href='http://treet.tv/shows/designingworlds/episodes/japan-residents'>watching the show this week</a>, I was almost overwhelmed by the buzzing in my head.  The feeling is not new.  I seem to get it often when I'm enjoying something passively like watching choreographed performances, watching my avatar do certain animations, or watching SL television shows.  I thought to Google it today and it turns out there is a term for that feeling.  It's called 'autonomous sensory meridian response' and for me it feels like a pleasant static in the middle of my skull that moves into my shoulders close to my neck.  I wonder how many other SL users experience this feeling and didn't realize it has a name.</p><p><a href='http://en.wikipedia.org/wiki/Autonomous_sensory_meridian_response'>View the article on Wikipedia about ASMR</a></p>"
+};

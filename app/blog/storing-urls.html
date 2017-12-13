@@ -1,0 +1,207 @@
+<div class="content">
+    <h1>Storing URLs</h1>
+    <p>24th Nov, 2014 | <a class="colorlink" href="index.html">Back</a></p>
+    <hr>
+  <p>This is just going to be a mess because I'm really just taking notes.  I might clean it up into a readable blog post later.  Also, my blog software can use 'markup', so sometimes there are characters missing because it thinks I mean to italicize something.  I'll figure out how to disable that at some point, because I never use markup.<br><br>
+The goal here is to create a table in my OpenSim database that will hold info on the URLs that I've requested through llRequestURL.  Then I'll make a PHP script that spits out the URLs that are currently being used and have an option to delete URLs that are no longer being used.  If I can figure out how to add my own scripting extensions, maybe I can make an actual script command that saves the URL when it requests it.<br><br>
+First, I made a table in my OpenSim database.  Normally I use an external webhost for this sort of thing, but I figured I could be a big girl and mess with my actual database for once.  Here's the MySQL code:<br><br>
+<code><pre>
+use opensim;
+create table ppurls
+(id int not null auto<em>increment,
+url varchar(64),
+objectuuid varchar(64),
+created timestamp,
+primary key (id));
+describe ppurls;
+</pre></code>
+<br>
+That gives me this:<br><br>
+<code><pre>
+mysql> describe ppurls;
++------------+-------------+------+-----+-------------------+-----------------------------+
+| Field      | Type        | Null | Key | Default           | Extra                       |
++------------+-------------+------+-----+-------------------+-----------------------------+
+| id         | int(11)     | NO   | PRI | NULL              | auto</em>increment              |
+| url        | varchar(64) | YES  |     | NULL              |                             |
+| objectuuid | varchar(64) | YES  |     | NULL              |                             |
+| created    | timestamp   | NO   |     | CURRENT<em>TIMESTAMP | on update CURRENT</em>TIMESTAMP |
++------------+-------------+------+-----+-------------------+-----------------------------+
+4 rows in set (0.00 sec)
+</pre></code>
+<br>
+Wrote an LSL script that gets a URL and sends it via GET to a PHP script that writes the info in the database.  Here's the LSL:<br><br>
+<code><pre>
+string URL;
+key HttpRequest;</p>
+
+<p>WriteURL ( string TheURL )
+{
+// Location of PHP script
+string ScriptAddress = "http://liftedpixel.net/pixelplanet/addppurl.php";
+// Minimal security
+string PASS = "xxxxx";</p>
+
+<pre><code>// We're gunna use get
+list Params = [ HTTP_METHOD, "GET" ];
+// Get just the UUID part of the URL
+string xURL = llGetSubString ( TheURL, -37, -2 );
+// Get the UUID of the object containing the script
+string objectuuid = llGetKey ();
+// Put the address together
+string Address = ScriptAddress + "?url=" + xURL + "&amp;objectuuid=" + objectuuid + "&amp;PASS=" + PASS;
+
+// Make the request
+HttpRequest = llHTTPRequest ( Address, Params, "" );
+</code></pre>
+
+<p>}</p>
+
+<p>default
+{
+touch<em>start ( integer num</em>detected )
+{
+llRequestURL ();
+}</p>
+
+<pre><code>http_request ( key id, string method, string body )
+{
+if ( method == URL_REQUEST_GRANTED )
+{
+URL = body;
+llSay ( PUBLIC_CHANNEL, "My URL: " + URL );
+
+WriteURL ( URL );
+}
+
+else if ( method == "GET" )
+{
+llHTTPResponse ( id, 200, "Testing 123" );
+}
+}
+
+http_response ( key request_id, integer status, list metadata, string body )
+{
+if ( request_id == HttpRequest )
+{
+llSay ( PUBLIC_CHANNEL, body );
+}
+}
+</code></pre>
+
+<p>}
+</pre></code>
+<br>
+And here's the PHP:<br><br>
+<code><pre>
+&lt;?php</p>
+
+<p>$url = $<em>GET["url"];
+$objectuuid = $</em>GET["objectuuid"];
+$PASS = $_GET["PASS"];</p>
+
+<p>$thePASS = "xxxxx";</p>
+
+<p>include "connectwrite.php";</p>
+
+<p>if ( $PASS == $thePASS )
+{
+$query = "INSERT INTO ppurls ( url, objectuuid ) VALUES ( '$url', '$objectuuid' )";</p>
+
+<pre><code>if ( !mysqli_query( $connect, $query ) )
+{
+die( 'Error: ' . mysqli_error( $connect ) );
+}
+
+echo "URL added...";
+</code></pre>
+
+<p>}</p>
+
+<p>else 
+{
+echo "Password incorrect...";
+}
+?>
+</pre></code>
+<br>
+And it puts the info into the database like so:<br><br>
+<code><pre>
+mysql> select * from ppurls;
++----+--------------------------------------+--------------------------------------+---------------------+
+| id | url                                  | objectuuid                           | created             |
++----+--------------------------------------+--------------------------------------+---------------------+
+|  1 | eb18b03a-c437-4869-9392-057222c18aac | 918212aa-518a-417f-8b14-63986a3f0267 | 2014-11-24 16:03:41 |
+|  2 | 1db290c7-0c71-452f-84e3-33e654c15e94 | 918212aa-518a-417f-8b14-63986a3f0267 | 2014-11-24 16:08:19 |
++----+--------------------------------------+--------------------------------------+---------------------+
+2 rows in set (0.00 sec)
+</pre></code>
+<br>
+So far, so good.  Now to make a page that displays the URLs with an option to delete stale ones.  The PHP part is this:<br>
+<code><pre>
+&lt;?php
+include "connect.php";</p>
+
+<p>$sqlCommand = "SELECT * FROM ppurls";
+$query = mysqli<em>query($connect, $sqlCommand) or die (mysqli</em>error());</p>
+
+<p>while ($row = mysqli<em>fetch</em>assoc($query))
+{
+// Get the info
+$id = $row['id'];
+$url = $row['url'];
+$objectuuid = $row['objectuuid'];
+$timestamp = $row['created'];</p>
+
+<pre><code>// Spit out the results
+echo "&lt;div class='well well-sm'&gt;";
+echo "&lt;h3&gt;Object Name: x&lt;/h3&gt;&lt;p&gt;Entry ID: $id&lt;/p&gt;&lt;p&gt;ObjectUUID: $objectuuid&lt;/p&gt;&lt;p&gt;URL: &lt;a href='http://os.liftedpixel.net:9000/lslhttp/$url/'&gt;$url&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Created: $timestamp&lt;/p&gt;";
+echo "&lt;form action='deleteppurl.php' method='post' class='form-inline' role='form'&gt;&lt;input name='id' type='hidden' value='$id'&gt;&lt;input name='password' type='text' class='form-control input-sm' placeholder='Password'&gt; &lt;input type='submit' value='Delete' class='btn btn-sm btn-danger'&gt;&lt;/form&gt;";
+echo "&lt;/div&gt;";
+</code></pre>
+
+<p>} // close while statement
+?>
+</pre></code><br>
+And to delete from the database, it references this PHP script:<br><br>
+<pre><code>
+&lt;?php</p>
+
+<p>$id = $<em>POST["id"];
+$pass = $</em>POST["password"];</p>
+
+<p>$thePASS = "xxxxx";</p>
+
+<p>include "connectwrite.php";</p>
+
+<p>if ( $pass == $thePASS )
+{
+$query = "DELETE FROM ppurls WHERE id = $id";</p>
+
+<pre><code>if ( !mysqli_query( $connect, $query ) )
+{
+die( 'Error: ' . mysqli_error( $connect ) );
+}
+
+echo "URL deleted.";
+</code></pre>
+
+<p>}</p>
+
+<p>else 
+{
+echo "Password incorrect.";
+}</p>
+
+<p>echo "<br>Returning in a few seconds...";
+sleep (5);
+?>
+[script]
+window.location = "http://liftedpixel.net/pixelplanet/displayppurl.php";
+[/script]
+</code></pre>
+<br>
+When I'm feeling up to it, I'll write a join that grabs the objects name from the asset table based on it's UUID.  For now, I just put an X.  This project took me about 2 hours to put together.  I'm going to upload all the scripts to GitHub now so they're easier to look at.<br><br>
+Here's the GitHub link: <a href="https://github.com/liftedpixel/lslscripts/tree/master/PPURLs">https://github.com/liftedpixel/lslscripts/tree/master/PPURLs</a></p>
+            <a class="colorlink" href="#top">Top</a> | <a class="colorlink" href="index.html">Back</a>
+</div>

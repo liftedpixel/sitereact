@@ -1,0 +1,87 @@
+<div class="content">
+    <h1>Getting llEmail to work in OpenSim</h1>
+    <p>1st Dec, 2014 | <a class="colorlink" href="index.html">Back</a></p>
+    <hr>
+  <p><b>Note:</b> I am currently running OpenSimulator 0.8, using the Diva Distro in standalone mode.  Getting llEmail to work in your setup might be a little different (but probably not by much).  Also, my blog software has a heck of a time dealing with underscores because it thinks I want to use 'markup', but I don't.  Still trying to figure out how to disable that...<br><br></p>
+
+<p>In Second Life, I have a little box that you can click and it will send a short email to my mobile phone via SMS.  That way, if you want to get a hold of me (or annoy me a bit), you can click it, I'll get the message, and I can log in and say hi.  I wanted to get the same thing working in OpenSim.  I copied my script from Second Life into my OpenSim region, clicked the box, and got an error:<br><br></p>
+
+<p><img src="http://liftedpixel.net/img/error.png"><br><br></p>
+
+<p>So, llEmail is not something that is enabled by default in OpenSim, mostly because it requires a few more pieces of info to be supplied so your simulator knows what SMTP server to connect to in order to send the email out.<br><br></p>
+
+<p>First, we'll make an email address for the grid to use.  If you don't have your own domain and webhosting, I highly recommend it.  Most domains are less than $10 a year and you can find small hosting packages for less than $50 a year.<br><br></p>
+
+<p><img src="http://liftedpixel.net/img/createemail.png"><br><br></p>
+
+<p>Log into your webhost's control panel, find the option to create an email address, and do so.  Usually on that page, or one nearby, will be the SMTP information.  If you use an email address through your webhost already, it's going to be the same SMTP settings you've put in your email client.  If you're not sure what your server settings are, check out the knowlegebase on the main site or send them a support ticket.  They should be able to send you the information.<br><br></p>
+
+<p><img src="http://liftedpixel.net/img/settings.png"><br><br></p>
+
+<p>Next, you need to enable the email module.  You can do that by finding "emailmodule = DefaultEmailModule" in the [Startup] section in OpenSim.ini and removing the leading semicolon to un-comment the line.  In my OpenSim.ini, it's on line 239, but you can also use the search function of your text editor to find it.<br><br></p>
+
+<p><img src="http://liftedpixel.net/img/startup.png"><br><br></p>
+
+<p>Next, you'll need to un-comment and change some settings in the [SMTP] section of OpenSim.ini.  For me, it starts on line 403 (but searching also works).  You're going to want to un-comment all the options in here, including:<br><br>
+enabled<br>
+internal<em>object</em>host<br>
+host<em>domain</em>header<em>from<br>
+email</em>pause<em>time<br>
+email</em>max<em>size<br>
+SMTP</em>SERVER<em>HOSTNAME<br>
+SMTP</em>SERVER<em>PORT<br>
+SMTP</em>SERVER<em>LOGIN<br>
+SMTP</em>SERVER_PASSWORD<br><br></p>
+
+<p><img src="http://liftedpixel.net/img/smtp.png"><br><br></p>
+
+<p>Honestly, they probably don't all need un-commented, but I just did them all to be safe.  The settings we're going to change from the default are:<br><br></p>
+
+<p>enabled (set to true)<br>
+host<em>domain</em>header<em>from (set to your grids domain or IP address)<br>
+SMTP</em>SERVER<em>HOSTNAME (set to your webhosts SMTP address)<br>
+SMTP</em>SERVER<em>LOGIN (set to the email address you set up)<br>
+SMTP</em>SERVER_PASSWORD (set to the password for that email address)<br><br></p>
+
+<p>Save the OpenSim.ini file and restart your OpenSim server.  You can test it out with this simple script:<br><br></p>
+
+<p><code><pre>
+string emailAddress = "xxxxxxxxxx@vtext.com";
+string emailHeader;</p>
+
+<p>default
+{
+state_entry ( )
+{
+llSetText ( "PING Jessica\nPlease click only once\nThis sends me a short SMS", &lt;0,0,1>, 1 );
+}</p>
+
+<pre><code>touch_start ( integer num_detected )
+{
+llSay ( PUBLIC_CHANNEL, "PINGing Jessica..." );
+
+key id = llDetectedKey ( 0 );
+string name = llDetectedName ( 0 );
+
+emailHeader = "PINGd by:" + name;
+
+llEmail ( emailAddress, emailHeader, "PING" );
+
+llSay ( PUBLIC_CHANNEL, "PING sent" );
+}
+</code></pre>
+
+<p>}
+</pre></code></p>
+
+<p>You can also copy it from GitHub here, because my blog software doesn't handle code very well: <a href="https://github.com/liftedpixel/lslscripts/blob/master/General/Send%20email.lsl">Send email.lsl</a><br><br></p>
+
+<p>Make an object, make a new script inside, paste in the code and change the email address at the top to your own (you might also want to change the rest of the text if you want to use it for more than testing, unless your name is also Jessica).  If all goes well, you should see the following text in your OpenSim console and the email should show up after a few moments:<br><br></p>
+
+<p><img src="http://liftedpixel.net/img/sent.png"><br><br></p>
+
+<p>Gratz, you now have llEmail working on your OpenSim grid.  Of course, there is plenty of room for abuse because there is no real filtering of emails, at least not by default.  I'm sure there is a way to monitor emails going out from your grid, but that is something that is beyond me at this point.  Of course, your webhost most likely has a limit to the number of emails any one account can send in a day, but if you're just running a personal grid like my own, you probably won't come anywhere near that unless someone drops some kind of spambot on your region.  Just keep an eye on your console for email messages and you should be fine.<br><br></p>
+
+<p>If you have any questions, please contact me via email at liftedpixel@gmail.com.  I don't check my blog comments, and they're usually disabled anyway because I get lots of spam.  Have fun with llEmail!<br><br></p>
+            <a class="colorlink" href="#top">Top</a> | <a class="colorlink" href="index.html">Back</a>
+</div>
